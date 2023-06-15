@@ -2,9 +2,8 @@ import copy
 import importlib
 import re
 import urllib.request
-from distutils.version import StrictVersion
 from pathlib import Path
-
+from packaging.version import Version
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from swagger_ui.handlers import supported_list
@@ -50,14 +49,14 @@ class ApplicationDocument(object):
         self.config_rel_url = config_rel_url
         assert (self.config or self.config_url or self.config_path or self.config_spec or
                 self.config_rel_url), \
-            'One of arguments "config", "config_path", "config_url", "config_spec"' \
-            ' or "config_rel_url" is required!'
+                'One of arguments "config", "config_path", "config_url", "config_spec"' \
+                ' or "config_rel_url" is required!'
 
         # parameters
         self.parameters = copy.deepcopy(_DefaultSwaggerUIBundleParameters)
         if parameters:
             self.parameters.update(parameters)
-        self.parameters["url"] = "\"{}\"".format(self.swagger_json_uri_absolute)
+        self.parameters["url"] = f'\"{self.swagger_json_uri_absolute}\"'
 
         # oauth2_config
         self.oauth2_config = oauth2_config
@@ -70,7 +69,7 @@ class ApplicationDocument(object):
 
     @property
     def blueprint_name(self):
-        return 'bp{}'.format(self.url_prefix.replace('/', '_'))
+        return f"bp{self.url_prefix.replace('/', '_')}"
 
     @property
     def static_dir(self):
@@ -96,7 +95,7 @@ class ApplicationDocument(object):
         )
 
     def uri(self, suffix=''):
-        return r'{}{}'.format(self.url_prefix, suffix)
+        return f'{self.url_prefix}{suffix}'
 
     @property
     def static_uri_relative(self):
@@ -141,10 +140,9 @@ class ApplicationDocument(object):
             config = _load_config(self.config_spec)
 
         version = config.get('openapi', '2.0.0')
-        if StrictVersion(version) >= StrictVersion('3.0.0'):
+        if Version(version).major >= 3:
             for server in config.get('servers', []):
-                server['url'] = re.sub(r'//[a-z0-9\-\.:]+/?',
-                                       '//{}/'.format(host), server['url'])
+                server['url'] = server['url']
         elif 'host' not in config:
             config['host'] = host
         return config
