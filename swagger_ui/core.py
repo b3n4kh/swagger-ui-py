@@ -48,11 +48,11 @@ class ApplicationDocument(object):
         self.config_spec = config_spec
         self.config_rel_url = config_rel_url
         assert (
-            self.config
-            or self.config_url
-            or self.config_path
-            or self.config_spec
-            or self.config_rel_url
+            self.config or
+            self.config_url or
+            self.config_path or
+            self.config_spec or
+            self.config_rel_url
         ), (
             'One of arguments "config", "config_path", "config_url", "config_spec"'
             ' or "config_rel_url" is required!'
@@ -131,8 +131,9 @@ class ApplicationDocument(object):
         return self.uri(self.editor_uri_relative(slashes))
 
     def get_config(self, host):
-        if self.config:
-            config = self.config
+        config = self.config
+        if not config:
+            return
         elif self.config_path:
             assert Path(self.config_path).is_file()
 
