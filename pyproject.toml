@@ -3,7 +3,7 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "swagger-ui-py"
+name = "swagger-ui-py-x"
 version = "25.01.21"
 description = "Swagger UI for Python web framework, such as Tornado, Flask, Quart, Sanic and Falcon."
 readme = "README.md"

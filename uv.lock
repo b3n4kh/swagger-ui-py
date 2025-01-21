@@ -1332,7 +1332,7 @@ wheels = [
 ]
 
 [[package]]
-name = "swagger-ui-py"
+name = "swagger-ui-py-x"
 version = "25.1.21"
 source = { editable = "." }
 dependencies = [

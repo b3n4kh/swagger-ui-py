@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,7 +34,7 @@ jobs:
 
 
       - name: Build
-        run: uv run build
+        run: uv build
 
       - name: Release
         uses: softprops/action-gh-release@v2.0.6
@@ -43,3 +44,6 @@ jobs:
           body_path: ${{ runner.temp }}/release_body.md
           files: |
             dist/*
+
+      - name: Publish to Pypi
+        uses: pypa/gh-action-pypi-publish@release/v1
