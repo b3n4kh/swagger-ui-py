@@ -1,32 +1,27 @@
 import falcon
 import pytest
 from falcon import testing
-from packaging.version import Version
 
 from swagger_ui import api_doc
-from swagger_ui import falcon_api_doc
 
 from .common import config_content
-from .common import parametrize_list
+from .common import kwargs_list
 
 
 @pytest.fixture
 def app():
-    class HelloWorldHandler(object):
+    class HelloWorldHandler:
         def on_get(self, req, resp):
-            resp.body = 'Hello World!!!'
+            resp.text = 'Hello World!!!'
 
-    if Version(falcon.__version__) < Version('3.0.0'):
-        app = falcon.API()
-    else:
-        app = falcon.App()
+    app = falcon.App()
 
     app.add_route('/hello/world', HelloWorldHandler())
     return app
 
 
-@pytest.mark.parametrize('mode, kwargs', parametrize_list)
-def test_falcon(app, mode, kwargs):
+@pytest.mark.parametrize('kwargs', kwargs_list)
+def test_falcon(app, kwargs):
     if kwargs['url_prefix'] in ('', '/'):
         return
 
@@ -36,10 +31,7 @@ def test_falcon(app, mode, kwargs):
                 resp.body = config_content
         app.add_route(kwargs['config_rel_url'], SwaggerConfigHandler())
 
-    if mode == 'auto':
-        api_doc(app, **kwargs)
-    else:
-        falcon_api_doc(app, **kwargs)
+    api_doc(app, **kwargs)
 
     url_prefix = kwargs['url_prefix']
     if url_prefix.endswith('/'):

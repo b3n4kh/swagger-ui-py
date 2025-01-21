@@ -5,10 +5,9 @@ from chalice.local import ForbiddenError
 from chalice.local import LocalGateway
 
 from swagger_ui import api_doc
-from swagger_ui import chalice_api_doc
 
 from .common import config_content
-from .common import parametrize_list
+from .common import kwargs_list
 
 
 @pytest.fixture
@@ -21,17 +20,14 @@ def app():
     return app
 
 
-@pytest.mark.parametrize('mode, kwargs', parametrize_list)
-def test_chalice(app, mode, kwargs):
+@pytest.mark.parametrize('kwargs', kwargs_list)
+def test_chalice(app, kwargs):
     if kwargs.get('config_rel_url'):
         @app.route(kwargs['config_rel_url'])
         def swagger_config_handler():
             return config_content
 
-    if mode == 'auto':
-        api_doc(app, **kwargs)
-    else:
-        chalice_api_doc(app, **kwargs)
+    api_doc(app, **kwargs)
 
     url_prefix = kwargs['url_prefix']
     if url_prefix.endswith('/'):

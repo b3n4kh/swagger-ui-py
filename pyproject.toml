@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swagger-ui-py"
+version = "25.01.21"
+description = "Swagger UI for Python web framework, such as Tornado, Flask, Quart, Sanic and Falcon."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "Apache License 2.0"}
+authors = [
+    {name = "b3n4kh", email = "b@akhras.at"},
+    {name = "PWZER", email = "pwzergo@gmail.com"}
+]
+urls = { "Homepage" = "https://github.com/b3n4kh/swagger-ui-py" }
+
+dependencies = [
+    "jinja2>=2.0",
+    "packaging>=20.0",
+    "PyYaml>=5.0"
+]
+
+[project.optional-dependencies]
+dev  = ["ruff", "isort"]
+test = ["aiohttp", "bottle", "chalice", "falcon", "flask", "pytest", "pytest-aiohttp", "quart", "requests", "sanic", "sanic-testing", "starlette", "tornado", "uvicorn", "webtest"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["swagger_ui"]
+
+[tool.setuptools.package-data]
+"swagger_ui" = ["static/*", "templates/*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint.per-file-ignores]
+"test/*" = ["E402"]
+"examples/*" = ["E402"]

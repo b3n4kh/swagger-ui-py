@@ -2,10 +2,9 @@ import pytest
 from quart import Quart
 
 from swagger_ui import api_doc
-from swagger_ui import quart_api_doc
 
 from .common import config_content
-from .common import parametrize_list
+from .common import kwargs_list
 
 
 @pytest.fixture
@@ -19,8 +18,8 @@ def app():
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('mode, kwargs', parametrize_list)
-async def test_quart(app, mode, kwargs):
+@pytest.mark.parametrize('kwargs', kwargs_list)
+async def test_quart(app, kwargs):
     if kwargs['url_prefix'] in ('/', ''):
         return
 
@@ -29,10 +28,7 @@ async def test_quart(app, mode, kwargs):
         def swagger_config():
             return config_content
 
-    if mode == 'auto':
-        api_doc(app, **kwargs)
-    else:
-        quart_api_doc(app, **kwargs)
+    api_doc(app, **kwargs)
 
     url_prefix = kwargs['url_prefix']
     if url_prefix.endswith('/'):

@@ -4,33 +4,29 @@ from webtest import AppError
 from webtest import TestApp
 
 from swagger_ui import api_doc
-from swagger_ui import bottle_api_doc
 
 from .common import config_content
-from .common import parametrize_list
+from .common import kwargs_list
 
 
 @pytest.fixture
 def app():
     app = Bottle()
 
-    @app.route('/hello/world')
+    @app.route('/hello/world') # type: ignore
     def hello():
         return 'Hello World!!!'
     return app
 
 
-@pytest.mark.parametrize('mode, kwargs', parametrize_list)
-def test_bottle(app, mode, kwargs):
+@pytest.mark.parametrize('kwargs', kwargs_list)
+def test_bottle(app, kwargs):
     if kwargs.get('config_rel_url'):
         @app.route(kwargs['config_rel_url'])
         def swagger_config_handler():
             return config_content
 
-    if mode == 'auto':
-        api_doc(app, **kwargs)
-    else:
-        bottle_api_doc(app, **kwargs)
+    api_doc(app, **kwargs)
 
     url_prefix = kwargs['url_prefix']
     if url_prefix.endswith('/'):

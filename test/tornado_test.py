@@ -5,10 +5,9 @@ import tornado.ioloop
 import tornado.web
 
 from swagger_ui import api_doc
-from swagger_ui import tornado_api_doc
 
 from .common import config_content
-from .common import parametrize_list
+from .common import kwargs_list
 
 
 @pytest.fixture
@@ -24,18 +23,15 @@ def app():
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('mode, kwargs', parametrize_list)
-async def test_tornado(app, mode, kwargs):
+@pytest.mark.parametrize('kwargs', kwargs_list)
+async def test_tornado(app, kwargs):
     if kwargs.get('config_rel_url'):
         class SwaggerConfigHandler(tornado.web.RequestHandler):
             def get(self, *args, **kwargs):
                 return self.write(config_content)
         app.add_handlers('.*', [(kwargs['config_rel_url'], SwaggerConfigHandler)])
 
-    if mode == 'auto':
-        api_doc(app, **kwargs)
-    else:
-        tornado_api_doc(app, **kwargs)
+    api_doc(app, **kwargs)
 
     server = tornado.httpserver.HTTPServer(app)
     server.listen(0)
@@ -66,7 +62,7 @@ async def test_tornado(app, mode, kwargs):
         try:
             resp = await http_client.fetch(f'{url_prefix}/editor')
         except tornado.httpclient.HTTPClientError as e:
-            assert e.code == 404, e.response.body
+            assert e.code == 404
 
     if kwargs.get('config_rel_url'):
         resp = await http_client.fetch(server_addr + kwargs['config_rel_url'])

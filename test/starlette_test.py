@@ -4,10 +4,9 @@ from starlette.responses import PlainTextResponse
 from starlette.testclient import TestClient
 
 from swagger_ui import api_doc
-from swagger_ui import starlette_api_doc
 
 from .common import config_content
-from .common import parametrize_list
+from .common import kwargs_list
 
 
 @pytest.fixture
@@ -20,8 +19,8 @@ def app():
     return app
 
 
-@pytest.mark.parametrize('mode, kwargs', parametrize_list)
-def test_starlette(app, mode, kwargs):
+@pytest.mark.parametrize('kwargs', kwargs_list)
+def test_starlette(app, kwargs):
     if kwargs['url_prefix'] in ('/', ''):
         return
 
@@ -30,10 +29,7 @@ def test_starlette(app, mode, kwargs):
         def swagger_config(request):
             return PlainTextResponse(config_content)
 
-    if mode == 'auto':
-        api_doc(app, **kwargs)
-    else:
-        starlette_api_doc(app, **kwargs)
+    api_doc(app, **kwargs)
 
     url_prefix = kwargs['url_prefix']
     if url_prefix.endswith('/'):
