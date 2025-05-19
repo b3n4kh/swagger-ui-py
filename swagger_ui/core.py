@@ -71,6 +71,8 @@ class ApplicationDocument(object):
 
     @property
     def blueprint_name(self):
+        if bp := self.extra_config.get("blueprint_name", None):
+            return bp
         return 'bp{}'.format(self.url_prefix.replace('/', '_').replace('.', '_'))
 
     @property
