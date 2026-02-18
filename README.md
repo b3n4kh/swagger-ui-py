@@ -157,11 +157,11 @@ python3 -c "from swagger_ui import supported_list; print(supported_list)"
 
 ## Swagger UI
 
-Swagger UI version is `v5.18.2`. see [https://github.com/swagger-api/swagger-ui](https://github.com/swagger-api/swagger-ui).
+Swagger UI version is `v5.31.1`. see [https://github.com/swagger-api/swagger-ui](https://github.com/swagger-api/swagger-ui).
 
 ## Swagger Editor
 
-Swagger Editor version is `v4.14.0`. see [https://github.com/swagger-api/swagger-editor](https://github.com/swagger-api/swagger-editor).
+Swagger Editor version is `v5.2.1`. see [https://github.com/swagger-api/swagger-editor](https://github.com/swagger-api/swagger-editor).
 
 ## Update
 
