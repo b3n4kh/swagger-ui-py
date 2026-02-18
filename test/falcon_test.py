@@ -1,37 +1,51 @@
 import falcon
 import pytest
 from falcon import testing
+from packaging.version import Version
 
 from swagger_ui import api_doc
+from swagger_ui import falcon_api_doc
 
 from .common import config_content
-from .common import kwargs_list
+from .common import parametrize_list
 
 
 @pytest.fixture
 def app():
-    class HelloWorldHandler:
+    class HelloWorldHandler(object):
         def on_get(self, req, resp):
-            resp.text = 'Hello World!!!'
+            if Version(falcon.__version__) >= Version('4.0.0'):
+                resp.data = b'Hello World!!!'
+            else:
+                resp.body = 'Hello World!!!'
 
-    app = falcon.App()
+    if Version(falcon.__version__) < Version('3.0.0'):
+        app = falcon.API()
+    else:
+        app = falcon.App()
 
     app.add_route('/hello/world', HelloWorldHandler())
     return app
 
 
-@pytest.mark.parametrize('kwargs', kwargs_list)
-def test_falcon(app, kwargs):
+@pytest.mark.parametrize('mode, kwargs', parametrize_list)
+def test_falcon(app, mode, kwargs):
     if kwargs['url_prefix'] in ('', '/'):
         return
 
     if kwargs.get('config_rel_url'):
         class SwaggerConfigHandler(object):
             def on_get(self, req, resp):
-                resp.body = config_content
+                if Version(falcon.__version__) >= Version('4.0.0'):
+                    resp.media = config_content
+                else:
+                    resp.body = config_content
         app.add_route(kwargs['config_rel_url'], SwaggerConfigHandler())
 
-    api_doc(app, **kwargs)
+    if mode == 'auto':
+        api_doc(app, **kwargs)
+    else:
+        falcon_api_doc(app, **kwargs)
 
     url_prefix = kwargs['url_prefix']
     if url_prefix.endswith('/'):

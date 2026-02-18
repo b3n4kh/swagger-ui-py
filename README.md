@@ -5,6 +5,7 @@
 [Project Page](https://pwzer.github.io/swagger-ui-py/)
 
 # swagger-ui-py-x
+
 Swagger UI for Python web framework, such Tornado, Flask, Quart, aiohttp, Sanic and Falcon.
 
 Only support Python3.
@@ -103,6 +104,7 @@ python3 -c "from swagger_ui import supported_list; print(supported_list)"
   from swagger_ui import falcon_api_doc
   falcon_api_doc(app, config_path='./conf/test.yaml', url_prefix='/api/doc', title='API doc')
   ```
+
   Passing a value to the keyword argument `host_inject` will disable the behaviour which injects a host value into the specification served by Swagger UI.
 
 - Edit `Swagger` config file (JSON or YAML)
@@ -154,14 +156,21 @@ python3 -c "from swagger_ui import supported_list; print(supported_list)"
   For details about OAuth2 configuration, see the official documentation [OAuth2 Configuration](https://swagger.io/docs/open-source-tools/swagger-ui/usage/oauth2/).
 
 ## Swagger UI
+
 Swagger UI version is `v5.18.2`. see [https://github.com/swagger-api/swagger-ui](https://github.com/swagger-api/swagger-ui).
 
 ## Swagger Editor
+
 Swagger Editor version is `v4.14.0`. see [https://github.com/swagger-api/swagger-editor](https://github.com/swagger-api/swagger-editor).
 
 ## Update
+
 You can update swagger ui and swagger editor version with
 
 ```bash
-python3 tools/update.py --ui --editor
+tox -e update
 ```
+
+## Contributing
+
+If you are interested in becoming the developer or maintainer of this project, please contact me by email.

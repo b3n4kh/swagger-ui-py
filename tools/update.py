@@ -7,6 +7,8 @@ import tarfile
 from pathlib import Path
 
 import requests
+from djlint import Config
+from djlint.reformat import formatter
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--ui', action='store_true',
@@ -136,9 +138,15 @@ def replace_html_content():
                 f'<script>\n{DOC_HTML_JAVASCRIPT}\n</script>',
                 html,
             )
+            if 'href="{{ custom_css }}"' not in html:
+                html = re.sub(
+                    r'</head>',
+                    '{% if custom_css %}<link rel="stylesheet" type="text/css" href="{{ custom_css }}" />{% endif %}</head>',
+                    html
+                )
 
         with html_path.open('w') as html_file:
-            html_file.write(html)
+            html_file.write(formatter(Config("-"), html))
 
 
 def replace_readme(ui_version, editor_version):
