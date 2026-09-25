@@ -16,25 +16,34 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get tag name
-        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_ENV"
 
       - name: Get Tag Message
         run: |
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          echo "### ${{ env.TAG }}" >> $GITHUB_STEP_SUMMARY
-          git tag -l --format='%(contents)' ${{ env.TAG }} >> $GITHUB_STEP_SUMMARY
-          git tag -l --format='%(contents)' ${{ env.TAG }} >> ${{ runner.temp }}/release_body.md
+          echo "### ${TAG}" >> "$GITHUB_STEP_SUMMARY"
+          git tag -l --format='%(contents)' "$TAG" >> "$GITHUB_STEP_SUMMARY"
+          git tag -l --format='%(contents)' "$TAG" >> ${{ runner.temp }}/release_body.md
 
       - name: Setup Python
         uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
           python-version: 3.12
-      - run: uv sync --frozen
+      - run: uv sync --frozen --all-extras
 
+
+      - name: Validate release version and assets
+        run: |
+          uv run python -c 'import importlib.metadata, os; assert os.environ["TAG"].removeprefix("v") == importlib.metadata.version("swagger-ui-py-x")'
+          uv run python tools/verify_assets.py
+          uv run pytest -q test/
 
       - name: Build
         run: uv build
+
+      - name: Inspect built wheel
+        run: uv run python tools/verify_assets.py dist/*.whl
 
       - name: Release
         uses: softprops/action-gh-release@v2.0.6

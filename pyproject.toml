@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "swagger-ui-py-x"
-version = "25.05.19"
+version = "26.9.25"
 description = "Swagger UI for Python web framework, such as Tornado, Flask, Quart, Sanic and Falcon."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -31,7 +31,7 @@ packages = ["swagger_ui"]
 include-package-data = true
 
 [tool.setuptools.package-data]
-"swagger_ui" = ["static/*", "templates/*", "handlers/*"]
+"swagger_ui" = ["static/*", "static/**/*", "templates/*", "handlers/*"]
 
 [tool.ruff]
 line-length = 100

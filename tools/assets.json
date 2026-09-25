@@ -1,0 +1,23 @@
+{
+  "node": "22.22.0",
+  "npm": "10.9.4",
+  "dompurify": "3.4.16",
+  "dompurify_source_sha256": [
+    "c44274a7959cfdd4da871fa78a5d5fbbef55db68d118c5c0833bc4b5cf9633ad",
+    "1144c3ba99465d58ff93ab2419ebd99b7d7e12525b1ca4f45308771acf34cfec"
+  ],
+  "build_time": "Fri, 25 Sep 2026 00:00:00 GMT",
+  "ui": {
+    "repo": "swagger-api/swagger-ui",
+    "version": "5.33.0",
+    "commit": "cfd4a6c3cbaeeb7c13a8bada7c754de42d78cd5b",
+    "archive_sha256": "2252f83101738dc27c0513dc850ceed8cffcf17d2e104a77311fc9a73b97d119"
+  },
+  "editor": {
+    "repo": "swagger-api/swagger-editor",
+    "version": "5.8.8",
+    "commit": "19956f731ab7986d1b8497bbbeeee280749a8255",
+    "archive_sha256": "dc0a93b61be9c3c4c19345ef6ab0d04c992330f6df55ce01c8910caedae333f1",
+    "swagger_ui": "5.33.0"
+  }
+}

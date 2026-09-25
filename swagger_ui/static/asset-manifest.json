@@ -1,0 +1,68 @@
+{
+  "build": {
+    "node": "22.22.0",
+    "npm": "10.9.4",
+    "dompurify": "3.4.16",
+    "dompurify_source_sha256": [
+      "c44274a7959cfdd4da871fa78a5d5fbbef55db68d118c5c0833bc4b5cf9633ad",
+      "1144c3ba99465d58ff93ab2419ebd99b7d7e12525b1ca4f45308771acf34cfec"
+    ],
+    "build_time": "Fri, 25 Sep 2026 00:00:00 GMT",
+    "ui": {
+      "repo": "swagger-api/swagger-ui",
+      "version": "5.33.0",
+      "commit": "cfd4a6c3cbaeeb7c13a8bada7c754de42d78cd5b",
+      "archive_sha256": "2252f83101738dc27c0513dc850ceed8cffcf17d2e104a77311fc9a73b97d119"
+    },
+    "editor": {
+      "repo": "swagger-api/swagger-editor",
+      "version": "5.8.8",
+      "commit": "19956f731ab7986d1b8497bbbeeee280749a8255",
+      "archive_sha256": "dc0a93b61be9c3c4c19345ef6ab0d04c992330f6df55ce01c8910caedae333f1",
+      "swagger_ui": "5.33.0"
+    }
+  },
+  "sha256": {
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-DOMPurify": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "LICENSE-swagger-ui": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "editor/LICENSE-Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "editor/LICENSE-MIT.txt": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0",
+    "editor/LICENSE-react": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+    "editor/LICENSE-react-dom": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+    "editor/NOTICE": "b8bc66f52cb643391f5d6d87677fb9221469476cd7693dc628bbf3f0115f879b",
+    "editor/apidom.worker.js": "d4ce9c54b5e3a1df0ca062bc4a31be0acb914e9ca10070c49a2a8857594ac744",
+    "editor/apidom.worker.js.map": "7b1bb43ca5f9314ed23df17eceee8197ee76e966aac92c5feec16a35c756baa4",
+    "editor/assets/worker-V4rh8yJl.js": "48b1f9d371eda14b4a9ebd0d40c544a813371e75f9ab6dbad653a4dcec311edf",
+    "editor/assets/worker-V4rh8yJl.js.map": "87d28197415d4033929033ea69f9522d290b09dd8138b118ddc521f6cf7c84d0",
+    "editor/asyncapi-parser.worker.js": "e68b1d0d1469f41345637cafc17b7758b101e8a5d210374d09f0cef3a3634d4f",
+    "editor/asyncapi-parser.worker.js.map": "2e57a3b942f3db260c74905ba85d03ff0ca39545d344029bbd4ccab51e21f5ca",
+    "editor/editor.worker.js": "875a0b027d67dbf2e721bc50210fe1f859108d334de11a1571d4a339ea60cd39",
+    "editor/editor.worker.js.map": "a3717e17cacce29227baccf932d0342a3bbde85b634bee851e7d40b274e5cfe6",
+    "editor/swagger-editor.css": "9fca7c47c89770e9a01c7dd6981132cd1d37423f0694ea30254d51bd019f44de",
+    "editor/swagger-editor.js": "454b2ebe8bcc80e23b9100429f986b2cfe90bb42654ec94ccc6b2232c1a54dee",
+    "editor/swagger-editor.js.map": "cb4ad244a79e64feac2d7b9b93a5d3c51a20273b70674c69b70d44929016ca0e",
+    "favicon-16x16.png": "af24ad604dd7b3bcda8f975ab973075f4a2f70a4087944a12f8ef8b63a3e07c2",
+    "favicon-32x32.png": "3ed612f41e050ca5e7000cad6f1cbe7e7da39f65fca99c02e99e6591056e5837",
+    "index.css": "9324807d424565a1639bb29f3754c8d4d45c1009c67674e996e33355f6929ce7",
+    "oauth2-redirect.html": "f3546c5b74b44eac7de5b4193a641b4f23365470c109b490c566bac0de446745",
+    "oauth2-redirect.js": "a5c8a34e09e49737382cc5019446eec7c3db3461963fc5bfe448361d3c5549e9",
+    "swagger-initializer.js": "a895034f24f12d7cd81ec47c98da4f15721d9d9a8d2405f22f21704821f81d02",
+    "swagger-ui-bundle.js": "002b9f2fba2957962991719c46d79176847fe3c311d52784be9101091086baa3",
+    "swagger-ui-bundle.js.LICENSE.txt": "e5a4792feaa5332dfba37f1d7adf84308b93b4f2d8da0569a9f48a3cb61c969b",
+    "swagger-ui-bundle.js.map": "c57e5609db525bff7b0bf29e989c2893cf28579a6dda2905837fb6e9b2199abb",
+    "swagger-ui-es-bundle-core.js": "6bff7fbe629329f960b4da14b7d5e7ab128e97832ea0c262bd566e7f548e6171",
+    "swagger-ui-es-bundle-core.js.LICENSE.txt": "bf5cc2bed1ccdb8226570e53b495cf514d0344dbc3f8718e59b7ebec9e0d9280",
+    "swagger-ui-es-bundle-core.js.map": "eb9dad9f25a645f2206a9f051886ea803c6b4ea3c770314d6da17fa69dbae171",
+    "swagger-ui-es-bundle.js": "ab014e8a9cf25569306338a1d8138ae97d0ba367cb998f0af228ce594ef6be93",
+    "swagger-ui-es-bundle.js.LICENSE.txt": "e5a4792feaa5332dfba37f1d7adf84308b93b4f2d8da0569a9f48a3cb61c969b",
+    "swagger-ui-es-bundle.js.map": "7a2369d94057895f206c2c21befefb03e7166efb76be577aa6ba58a69e9c2e61",
+    "swagger-ui-standalone-preset.js": "e0d0a5d7a4039bbfbeea8ae6c894a1a7733d12af6996041ddbbb7ed71d947b7e",
+    "swagger-ui-standalone-preset.js.LICENSE.txt": "000580e4e2255ea6ccde0c47f6d75e2f703a1931298fde58756793b67c0daed9",
+    "swagger-ui-standalone-preset.js.map": "f0dc03444777f87b86081e4a19a1fdfd454f97b368d80622411fbce872985218",
+    "swagger-ui.css": "1ac324f7dcd27e4b9386b4bd6421271ec147e922a22c05ba24b11515e9aa6321",
+    "swagger-ui.css.map": "54533f6e23b30b920a30bdca1368d1bf9d279c7005d62347dc38d9b13c547258",
+    "swagger-ui.js": "4b2699fb17808b959a78fa8ee922376f7b3df7eafc838b4045319c391d9b400f",
+    "swagger-ui.js.map": "8b7d601f3ac3d1f51e9d59cc39683e6a008a4088a8107928887dce5a92b6472b"
+  }
+}

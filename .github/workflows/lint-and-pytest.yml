@@ -6,11 +6,9 @@ on:
       - master
     paths-ignore:
       - README.md
-      - 'tools/**'
   pull_request:
     paths-ignore:
       - README.md
-      - 'tools/**'
 
 jobs:
   lint-and-pytest:
@@ -29,7 +27,7 @@ jobs:
       run: uv python install
 
     - name: Install dependencies
-      run: uv sync --all-extras --dev
+      run: uv sync --frozen --all-extras --dev
 
     - name: isort
       run: uv run isort --line-width=100 --check-only --force-single-line-imports .
@@ -37,19 +35,13 @@ jobs:
     - name: Lint with ruff
       run: uv run ruff check --output-format=github .
 
-    - name: Run tests and capture output
-      run: |
-        {
-          echo "pytest_output<<EOF"
-          uv run pytest -s test/ || true
-          echo "EOF"
-        } >> $GITHUB_ENV
+    - name: Verify bundled assets
+      run: uv run python tools/verify_assets.py
 
-    - name: Extract and Post Test Summary
+    - name: Run tests
+      run: uv run pytest -q test/
+
+    - name: Build and inspect wheel
       run: |
-        echo "### ✅ Test Summary" >> $GITHUB_STEP_SUMMARY
-        echo "- **✅ Passed:** $(echo "$pytest_output" | grep -oP '\d+(?= passed)' || echo 0)" >> $GITHUB_STEP_SUMMARY
-        echo "- **❌ Failed:** $(echo "$pytest_output" | grep -oP '\d+(?= failed)' || echo 0)" >> $GITHUB_STEP_SUMMARY
-        echo "- **⚠️ Skipped:** $(echo "$pytest_output" | grep -oP '\d+(?= skipped)' || echo 0)" >> $GITHUB_STEP_SUMMARY
-        echo "- **🚨 Errors:** $(echo "$pytest_output" | grep -oP '\d+(?= error)' || echo 0)" >> $GITHUB_STEP_SUMMARY
-        echo "- **⏱ Duration:** $(echo "$pytest_output" | grep -oP '\d+\.\d+(?= seconds)' || echo 0) seconds" >> $GITHUB_STEP_SUMMARY
+        uv build
+        uv run python tools/verify_assets.py dist/*.whl

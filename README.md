@@ -34,7 +34,7 @@ python3 -c "from swagger_ui import supported_list; print(supported_list)"
 - Install
 
   ```bash
-  pip3 install swagger-ui-py
+  pip3 install swagger-ui-py-x
   ```
 
 - Code
@@ -154,14 +154,28 @@ python3 -c "from swagger_ui import supported_list; print(supported_list)"
   For details about OAuth2 configuration, see the official documentation [OAuth2 Configuration](https://swagger.io/docs/open-source-tools/swagger-ui/usage/oauth2/).
 
 ## Swagger UI
-Swagger UI version is `v5.18.2`. see [https://github.com/swagger-api/swagger-ui](https://github.com/swagger-api/swagger-ui).
+Swagger UI version is `v5.33.0`. see [https://github.com/swagger-api/swagger-ui](https://github.com/swagger-api/swagger-ui).
 
 ## Swagger Editor
-Swagger Editor version is `v4.14.0`. see [https://github.com/swagger-api/swagger-editor](https://github.com/swagger-api/swagger-editor).
+Swagger Editor version is `v5.8.8`. see [https://github.com/swagger-api/swagger-editor](https://github.com/swagger-api/swagger-editor).
 
 ## Update
-You can update swagger ui and swagger editor version with
+
+The shipped UI and Editor bundles are rebuilt with **DOMPurify 3.4.16**.
+Swagger UI 5.33.0 and Swagger Editor 5.8.8 are built from their current upstream
+releases. Editor uses its new React/Monaco interface with locally served workers
+and loads the configured specification. Python APIs, Flask blueprint configuration,
+the documentation template, and OAuth initialization are unchanged.
+
+Use Python 3.12+, Node 22.22.0 and npm 10.9.4 to reproduce the assets:
 
 ```bash
-python3 tools/update.py --ui --editor
+uv run --python 3.12 python tools/update.py --ui --editor
+uv run python tools/verify_assets.py
 ```
+
+Versions, source archive checksums, and npm dependency locks are committed under
+`tools/`. The updater builds from source, preserves local templates, and rejects
+unexpected embedded DOMPurify sources. It never downloads floating latest bundles.
+See [release and asset maintenance instructions](RELEASE.md) for dependency updates,
+wheel verification, browser checks, and the approval-gated release procedure.

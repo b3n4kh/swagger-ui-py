@@ -1,0 +1,2 @@
+# Generated vendor bundles contain significant whitespace inside JS template literals.
+swagger_ui/static/** -whitespace linguist-generated=true

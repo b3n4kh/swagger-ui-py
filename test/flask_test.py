@@ -56,3 +56,36 @@ def test_flask(app, kwargs):
     else:
         resp = client.get(f'{url_prefix}/swagger.json')
         assert resp.status_code == 200, resp.data
+
+
+def test_fork_configuration_and_oauth(app):
+    api_doc(
+        app,
+        config={"openapi": "3.0.3", "info": {"title": "Fork", "version": "1"}, "paths": {}},
+        url_prefix="/private/docs",
+        blueprint_name="custom_docs",
+        editor=True,
+        parameters={"validatorUrl": "null", "docExpansion": '"none"'},
+        oauth2_config={"clientId": '"fork-client"', "usePkceWithAuthorizationCodeGrant": "true"},
+        host_inject=False,
+    )
+    assert "custom_docs" in app.blueprints
+    client = app.test_client()
+    html = client.get("/private/docs").get_data(as_text=True)
+    assert 'url: "/private/docs/swagger.json"' in html
+    assert 'docExpansion: "none"' in html
+    assert "ui.initOAuth({" in html
+    assert 'clientId: "fork-client"' in html
+    assert "usePkceWithAuthorizationCodeGrant: true" in html
+    assert "host" not in client.get("/private/docs/swagger.json").json
+    editor = client.get("/private/docs/editor")
+    assert editor.status_code == 200
+    assert 'url: "/private/docs/swagger.json"' in editor.get_data(as_text=True)
+    for asset in (
+        "swagger-editor.js", "swagger-editor.css", "editor.worker.js",
+        "apidom.worker.js", "asyncapi-parser.worker.js",
+    ):
+        assert client.get(f"/private/docs/static/editor/{asset}").status_code == 200
+    redirect = client.get("/private/docs/static/oauth2-redirect.html")
+    assert redirect.status_code == 200
+    assert client.get("/private/docs/static/oauth2-redirect.js").status_code == 200

@@ -111,3 +111,7 @@ venv.bak/
 
 # Mac
 .DS_Store
+
+# Local browser smoke artifacts
+.playwright-cli/
+output/playwright/

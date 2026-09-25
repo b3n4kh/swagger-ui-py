@@ -12,3 +12,4 @@ repos:
     rev: v5.0.0
     hooks:
       - id: trailing-whitespace
+        exclude: ^swagger_ui/static/
