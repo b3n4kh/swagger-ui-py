@@ -64,6 +64,7 @@ def test_fork_configuration_and_oauth(app):
         config={"openapi": "3.0.3", "info": {"title": "Fork", "version": "1"}, "paths": {}},
         url_prefix="/private/docs",
         blueprint_name="custom_docs",
+        custom_css="/custom-docs.css",
         editor=True,
         parameters={"validatorUrl": "null", "docExpansion": '"none"'},
         oauth2_config={"clientId": '"fork-client"', "usePkceWithAuthorizationCodeGrant": "true"},
@@ -74,6 +75,7 @@ def test_fork_configuration_and_oauth(app):
     html = client.get("/private/docs").get_data(as_text=True)
     assert 'url: "/private/docs/swagger.json"' in html
     assert 'docExpansion: "none"' in html
+    assert 'href="/custom-docs.css"' in html
     assert "ui.initOAuth({" in html
     assert 'clientId: "fork-client"' in html
     assert "usePkceWithAuthorizationCodeGrant: true" in html

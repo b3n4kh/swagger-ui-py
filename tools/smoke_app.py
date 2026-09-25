@@ -49,6 +49,7 @@ api_doc(
     config=spec,
     url_prefix="/private/docs",
     blueprint_name="custom_docs",
+    custom_css="/custom-docs.css",
     editor=True,
     host_inject=False,
     parameters={
@@ -62,6 +63,11 @@ api_doc(
         "scopes": '"read"',
     },
 )
+
+
+@app.get("/custom-docs.css")
+def custom_css():
+    return ":root { --swagger-smoke-custom-css: loaded; }", {"Content-Type": "text/css"}
 
 
 @app.get("/hello")

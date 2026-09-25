@@ -93,7 +93,7 @@ uv run python tools/verify_assets.py dist/26.9.25/*.whl
 uvx --from twine==6.2.0 twine check dist/26.9.25/*
 ```
 
-Repeat tests with Python 3.9, the minimum supported version. Install the wheel in
+Repeat tests with Python 3.13; Python 3.12 is the minimum supported version. Install the wheel in
 a clean environment outside the checkout and smoke-test in a browser using a
 Flask app with a non-default URL prefix, custom `blueprint_name`, local OpenAPI
 configuration, Editor enabled, and OAuth client/PKCE configuration. A local fixture
@@ -119,12 +119,12 @@ configured local spec. Confirm:
 
 ## Validation recorded on 2026-09-25
 
-- Python 3.9 and 3.12: 50 tests passed on each; only dependency deprecation warnings.
+- Python 3.12 and 3.13: 55 tests passed on each; only dependency deprecation warnings.
 - Ruff, isort, Deno lint/format, and `git diff --check` passed.
 - Clean source rebuilds produced byte-identical UI/Editor assets and maps.
 - Built wheel and sdist; Twine metadata checks passed. The actual wheel's entire
   static inventory and embedded DOMPurify ESM/CommonJS sources passed verification.
-- Chromium against a clean installed wheel: custom Flask prefix/blueprint,
+- Chromium against a clean installed wheel: custom Flask prefix/blueprint and custom CSS,
   configured OpenAPI spec, UI and Editor Markdown sanitization, Monaco workers,
   AsyncAPI preview, and local OAuth authorization-code/PKCE flow passed.
   Callback state-mismatch warnings and access-denied errors were also exercised.

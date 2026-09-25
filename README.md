@@ -7,7 +7,7 @@
 # swagger-ui-py-x
 Swagger UI for Python web framework, such Tornado, Flask, Quart, aiohttp, Sanic and Falcon.
 
-Only support Python3.
+Requires Python 3.12 or newer.
 
 ## Supported
 
@@ -179,3 +179,7 @@ Versions, source archive checksums, and npm dependency locks are committed under
 unexpected embedded DOMPurify sources. It never downloads floating latest bundles.
 See [release and asset maintenance instructions](RELEASE.md) for dependency updates,
 wheel verification, browser checks, and the approval-gated release procedure.
+
+## Contributing
+
+If you are interested in becoming the developer or maintainer of this project, please contact me by email.
